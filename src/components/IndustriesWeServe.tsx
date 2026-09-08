@@ -89,7 +89,6 @@ const INDUSTRIES = [
 
 const COUNT = INDUSTRIES.length;
 const STEP = 360 / COUNT;
-const DEPTH = 400;
 
 export const IndustriesWeServe: React.FC = () => {
   const shouldReduceMotion = useReducedMotion();
@@ -98,6 +97,23 @@ export const IndustriesWeServe: React.FC = () => {
   const rawFront = useMotionValue(0);
   const front = useSpring(rawFront, { stiffness: 80, damping: 20, mass: 0.55 });
   const [active, setActive] = useState(0);
+  const [depth, setDepth] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth < 640 ? 118 : 400,
+  );
+  const [tilt, setTilt] = useState(() =>
+    typeof window !== 'undefined' && window.innerWidth < 640 ? 8 : 26,
+  );
+
+  useEffect(() => {
+    const measure = () => {
+      const width = window.innerWidth;
+      setDepth(width < 640 ? 118 : width < 1024 ? 260 : 400);
+      setTilt(width < 640 ? 8 : width < 1024 ? 18 : 26);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
 
   useEffect(() => {
     if (shouldReduceMotion) return;
@@ -156,12 +172,12 @@ export const IndustriesWeServe: React.FC = () => {
   const current = INDUSTRIES[active];
 
   return (
-    <section ref={sectionRef} className="relative z-20 py-16 sm:py-28 bg-[#0f131a] text-white overflow-x-hidden">
+    <section ref={sectionRef} className="relative z-20 py-16 sm:py-28 bg-[#0f131a] text-white">
       <IndustryHeading />
 
-      <div className="relative mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 items-center gap-8 px-4 sm:px-8 lg:px-12">
-        <div className="lg:col-span-5 text-center lg:text-left" style={{ perspective: '900px' }}>
-          <div className="min-h-[7.5rem] sm:min-h-[9rem]">
+      <div className="relative mt-10 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 items-start lg:items-center gap-10 lg:gap-8 px-4 sm:px-8 lg:px-12">
+        <div className="relative z-10 order-2 lg:order-1 lg:col-span-5 text-center lg:text-left overflow-hidden" style={{ perspective: '900px' }}>
+          <div className="min-h-[4.5rem] sm:min-h-[9rem]">
             <AnimatePresence mode="wait">
               <motion.h3
                 key={current.name}
@@ -189,10 +205,8 @@ export const IndustriesWeServe: React.FC = () => {
           </AnimatePresence>
         </div>
 
-        <div className="lg:col-span-7 h-[240px] sm:h-[400px] lg:h-[480px] overflow-hidden">
-          <div className="h-full w-full origin-center scale-[0.62] sm:scale-90 lg:scale-100">
-            <IndustryRing front={front} />
-          </div>
+        <div className="relative z-0 order-1 lg:order-2 lg:col-span-7 h-[340px] sm:h-[400px] lg:h-[480px] pt-2 lg:pt-0">
+          <IndustryRing front={front} depth={depth} tilt={tilt} />
         </div>
       </div>
 
@@ -206,7 +220,7 @@ export const IndustriesWeServe: React.FC = () => {
 };
 
 const IndustryHeading: React.FC = () => (
-  <header className="text-center px-4">
+  <header className="text-center px-4 mb-2">
     <span className="inline-flex items-center gap-3 text-[10px] sm:text-xs font-mono font-bold tracking-[0.28em] uppercase text-blue-400">
       <span className="w-8 h-px bg-blue-400/70" />
       Who we work with
@@ -218,15 +232,19 @@ const IndustryHeading: React.FC = () => (
   </header>
 );
 
-const IndustryRing: React.FC<{ front: MotionValue<number> }> = ({ front }) => {
+const IndustryRing: React.FC<{ front: MotionValue<number>; depth: number; tilt: number }> = ({
+  front,
+  depth,
+  tilt,
+}) => {
   return (
-    <div className="relative h-full w-full" style={{ perspective: '1400px', perspectiveOrigin: '50% 48%' }}>
+    <div className="relative h-full w-full" style={{ perspective: '1400px', perspectiveOrigin: '50% 58%' }}>
       <div
         className="absolute inset-0 flex items-center justify-center"
-        style={{ transformStyle: 'preserve-3d', transform: 'rotateX(26deg)' }}
+        style={{ transformStyle: 'preserve-3d', transform: `rotateX(${tilt}deg)` }}
       >
         {INDUSTRIES.map((industry, index) => (
-          <IndustryOrb key={industry.name} industry={industry} index={index} front={front} />
+          <IndustryOrb key={industry.name} industry={industry} index={index} front={front} depth={depth} />
         ))}
       </div>
     </div>
@@ -237,7 +255,8 @@ const IndustryOrb: React.FC<{
   industry: (typeof INDUSTRIES)[number];
   index: number;
   front: MotionValue<number>;
-}> = ({ industry, index, front }) => {
+  depth: number;
+}> = ({ industry, index, front, depth }) => {
   const Icon = industry.icon;
   const rotateY = useTransform(front, (value) => (index - Number(value)) * STEP);
   const opacity = useTransform(front, (value) => {
@@ -262,11 +281,11 @@ const IndustryOrb: React.FC<{
   return (
     <motion.div
       style={{ rotateY, zIndex, transformStyle: 'preserve-3d' }}
-      className="absolute left-1/2 top-1/2 -ml-[48px] -mt-[48px] sm:-ml-[58px] sm:-mt-[58px] will-change-transform"
+      className="absolute left-1/2 top-[58%] sm:top-1/2 -ml-[48px] -mt-[48px] sm:-ml-[58px] sm:-mt-[58px] will-change-transform"
     >
       <div
         style={{
-          transform: `translateZ(${DEPTH}px)`,
+          transform: `translateZ(${depth}px)`,
           transformStyle: 'preserve-3d',
         }}
       >

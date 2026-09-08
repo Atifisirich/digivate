@@ -11,7 +11,7 @@ import {
 } from 'motion/react';
 import { ArrowRight, Globe, Smartphone, Target, Zap } from 'lucide-react';
 import { SERVICES } from '../config/siteConfig';
-import { SceneControls, scrollSnapToIndex, useHorizontalProgress } from './SceneControls';
+import { SceneControls } from './SceneControls';
 
 const TOTAL = SERVICES.length;
 
@@ -65,33 +65,31 @@ export const HomeServiceCards: React.FC = () => {
   const inView = useInView(sectionRef, { amount: 0.22 });
   const rawProgress = useMotionValue(0);
   const progress = useSpring(rawProgress, { stiffness: 78, damping: 20, mass: 0.55 });
-  const spread = useMotionValue(280);
+  const isPhone = typeof window !== 'undefined' && window.innerWidth < 640;
+  const spread = useMotionValue(isPhone ? 148 : 280);
+  const rotateStep = useMotionValue(isPhone ? 26 : 44);
+  const fadeFrom = useMotionValue(isPhone ? 0.7 : 1.05);
+  const fadeTo = useMotionValue(isPhone ? 1.22 : 1.78);
+  const [tilt, setTilt] = useState(() => (isPhone ? 6 : 14));
   const [active, setActive] = useState(0);
-
-  const [coverflow, setCoverflow] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches,
-  );
 
   useEffect(() => {
     const measure = () => {
       const width = window.innerWidth;
-      spread.set(width < 640 ? 148 : width < 1024 ? 240 : 320);
+      const phone = width < 640;
+      spread.set(phone ? 148 : width < 1024 ? 200 : 320);
+      rotateStep.set(phone ? 26 : 44);
+      fadeFrom.set(phone ? 0.7 : 1.05);
+      fadeTo.set(phone ? 1.22 : 1.78);
+      setTilt(phone ? 6 : 14);
     };
     measure();
     window.addEventListener('resize', measure);
     return () => window.removeEventListener('resize', measure);
-  }, [spread]);
+  }, [spread, rotateStep, fadeFrom, fadeTo]);
 
   useEffect(() => {
-    const media = window.matchMedia('(min-width: 1024px)');
-    const sync = () => setCoverflow(media.matches);
-    sync();
-    media.addEventListener('change', sync);
-    return () => media.removeEventListener('change', sync);
-  }, []);
-
-  useEffect(() => {
-    if (shouldReduceMotion || !coverflow) return;
+    if (shouldReduceMotion) return;
 
     let frame = 0;
     let last = performance.now();
@@ -109,7 +107,7 @@ export const HomeServiceCards: React.FC = () => {
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [inView, rawProgress, shouldReduceMotion, coverflow]);
+  }, [inView, rawProgress, shouldReduceMotion]);
 
   const jump = (index: number) => {
     const current = rawProgress.get();
@@ -134,38 +132,35 @@ export const HomeServiceCards: React.FC = () => {
   }
 
   return (
-    <section ref={sectionRef} className="relative z-20 py-16 sm:py-28 bg-[#fafaf8] overflow-x-hidden">
+    <section ref={sectionRef} className="relative z-20 py-16 sm:py-28 bg-[#fafaf8]">
       <ServiceHeading />
 
-      {coverflow ? (
-        <>
-          <div
-            className="relative mt-8 sm:mt-12 h-[420px] sm:h-[500px] lg:h-[540px]"
-            style={{ perspective: '1100px', perspectiveOrigin: '50% 40%' }}
-          >
-            <div
-              className="absolute inset-0 flex items-center justify-center"
-              style={{ transformStyle: 'preserve-3d', transform: 'rotateX(14deg)' }}
-            >
-              {SERVICES.map((service, index) => (
-                <CoverflowCard
-                  key={service.id}
-                  service={service}
-                  index={index}
-                  progress={progress}
-                  spread={spread}
-                />
-              ))}
-            </div>
-          </div>
-          <SceneControls
-            onPrev={() => jump((active - 1 + TOTAL) % TOTAL)}
-            onNext={() => jump((active + 1) % TOTAL)}
-          />
-        </>
-      ) : (
-        <MobileServiceStrip />
-      )}
+      <div
+        className="relative mt-6 sm:mt-12 h-[400px] sm:h-[500px] lg:h-[540px]"
+        style={{ perspective: '1100px', perspectiveOrigin: '50% 42%' }}
+      >
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ transformStyle: 'preserve-3d', transform: `rotateX(${tilt}deg)` }}
+        >
+          {SERVICES.map((service, index) => (
+            <CoverflowCard
+              key={service.id}
+              service={service}
+              index={index}
+              progress={progress}
+              spread={spread}
+              rotateStep={rotateStep}
+              fadeFrom={fadeFrom}
+              fadeTo={fadeTo}
+            />
+          ))}
+        </div>
+      </div>
+      <SceneControls
+        onPrev={() => jump((active - 1 + TOTAL) % TOTAL)}
+        onNext={() => jump((active + 1) % TOTAL)}
+      />
     </section>
   );
 };
@@ -194,44 +189,18 @@ const ServiceHeading: React.FC = () => (
   </header>
 );
 
-const MobileServiceStrip: React.FC = () => {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const { active } = useHorizontalProgress(scrollerRef, TOTAL);
-
-  return (
-    <>
-      <div
-        ref={scrollerRef}
-        className="scene-h-scroll mt-8 px-[12vw] sm:px-[18vw]"
-      >
-        <div className="flex gap-4 w-max pr-[12vw] sm:pr-[18vw]">
-          {SERVICES.map((service) => (
-            <div
-              key={service.id}
-              className="w-[min(76vw,320px)] h-[340px] shrink-0 snap-center"
-            >
-              <ServiceCardBody service={service} />
-            </div>
-          ))}
-        </div>
-      </div>
-      <SceneControls
-        onPrev={() => scrollSnapToIndex(scrollerRef.current, Math.max(0, active - 1))}
-        onNext={() => scrollSnapToIndex(scrollerRef.current, Math.min(TOTAL - 1, active + 1))}
-      />
-    </>
-  );
-};
-
 const CoverflowCard: React.FC<{
   service: (typeof SERVICES)[number];
   index: number;
   progress: MotionValue<number>;
   spread: MotionValue<number>;
-}> = ({ service, index, progress, spread }) => {
-  const rotateY = useTransform(progress, (value) => {
+  rotateStep: MotionValue<number>;
+  fadeFrom: MotionValue<number>;
+  fadeTo: MotionValue<number>;
+}> = ({ service, index, progress, spread, rotateStep, fadeFrom, fadeTo }) => {
+  const rotateY = useTransform([progress, rotateStep], ([value, step]) => {
     const slot = relativeSlot(index, Number(value));
-    return Math.max(-70, Math.min(70, -slot * 44));
+    return Math.max(-55, Math.min(55, -slot * Number(step)));
   });
   const x = useTransform([progress, spread], ([value, width]) => {
     const slot = relativeSlot(index, Number(value));
@@ -243,9 +212,9 @@ const CoverflowCard: React.FC<{
     return 140 - slot * 180;
   });
   const y = useTransform(progress, (value) => Math.abs(relativeSlot(index, Number(value))) * 14);
-  const opacity = useTransform(progress, (value) => {
+  const opacity = useTransform([progress, fadeFrom, fadeTo], ([value, from, to]) => {
     const slot = Math.abs(relativeSlot(index, Number(value)));
-    return 1 - smoothstep(1.05, 1.78, slot);
+    return 1 - smoothstep(Number(from), Number(to), slot);
   });
   const scale = useTransform(progress, (value) => {
     const slot = Math.abs(relativeSlot(index, Number(value)));
@@ -266,14 +235,16 @@ const CoverflowCard: React.FC<{
         y,
         z,
         rotateY,
-        opacity,
         scale,
         zIndex,
         pointerEvents,
+        transformStyle: 'preserve-3d',
       }}
-      className="absolute left-1/2 top-1/2 -ml-[140px] -mt-[180px] sm:-ml-[160px] sm:-mt-[200px] w-[280px] h-[360px] sm:w-[320px] sm:h-[400px] will-change-transform"
+      className="absolute left-1/2 top-1/2 -ml-[105px] -mt-[140px] sm:-ml-[160px] sm:-mt-[200px] w-[210px] h-[280px] sm:w-[320px] sm:h-[400px] will-change-transform"
     >
-      <ServiceCardBody service={service} />
+      <motion.div style={{ opacity }} className="h-full w-full">
+        <ServiceCardBody service={service} />
+      </motion.div>
     </motion.div>
   );
 };
@@ -284,7 +255,7 @@ const ServiceCardBody: React.FC<{ service: (typeof SERVICES)[number] }> = ({ ser
 
   return (
     <article
-      className="h-full min-h-[300px] sm:min-h-[400px] rounded-[1.7rem] sm:rounded-[2rem] px-6 py-7 sm:px-8 sm:py-8 flex flex-col shadow-[0_30px_80px_-28px_rgba(15,19,26,0.45)]"
+      className="h-full min-h-0 sm:min-h-[400px] rounded-[1.5rem] sm:rounded-[2rem] px-5 py-5 sm:px-8 sm:py-8 flex flex-col shadow-[0_30px_80px_-28px_rgba(15,19,26,0.45)]"
       style={{ backgroundColor: theme.bg, color: theme.ink }}
     >
       <div className="flex items-start justify-end">
@@ -293,7 +264,7 @@ const ServiceCardBody: React.FC<{ service: (typeof SERVICES)[number] }> = ({ ser
         </div>
       </div>
 
-      <h3 className="mt-8 text-2xl sm:text-3xl font-display font-bold uppercase tracking-tight leading-[0.92]">
+      <h3 className="mt-5 sm:mt-8 text-xl sm:text-3xl font-display font-bold uppercase tracking-tight leading-[0.92]">
         {service.title}
       </h3>
       <p className="mt-3 text-sm leading-relaxed" style={{ color: theme.muted }}>

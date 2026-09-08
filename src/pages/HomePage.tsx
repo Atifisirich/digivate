@@ -35,7 +35,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking, loadingPhase 
   return (
     <div className="min-h-screen">
       <Seo page={PAGE_SEO.home} />
-      <section className="hero relative z-0 min-h-[100svh] pt-24 pb-36 sm:pb-24 overflow-x-hidden flex flex-col justify-center">
+      <section className="hero relative z-0 min-h-0 pt-[5.5rem] pb-16 sm:min-h-[100svh] sm:pt-24 sm:pb-24 overflow-x-hidden flex flex-col justify-center">
         {loadingPhase !== 'initial' && (
           <motion.div
             layoutId="hero-blue-glow"
@@ -53,11 +53,11 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking, loadingPhase 
                 <p className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.22em] text-blue-600">
                   Digital agency in Hyderabad
                 </p>
-                <h1 className="font-display font-bold tracking-[-0.06em] leading-[0.84] text-[#0f131a]">
+                <h1 className="font-display font-bold tracking-[-0.06em] leading-[0.92] sm:leading-[0.84] text-[#0f131a]">
                   {HERO_LINES.map((line, i) => (
                     <span key={line.text} className="editorial-word block max-w-full">
                       <motion.span
-                        className={`editorial-word__inner block text-[clamp(3.1rem,11vw,5.6rem)] lg:text-[clamp(3.3rem,5.2vw,5.8rem)] ${
+                        className={`editorial-word__inner block text-[clamp(2.35rem,12.5vw,5.6rem)] lg:text-[clamp(3.3rem,5.2vw,5.8rem)] ${
                           line.accent ? 'text-blue-600' : ''
                         }`}
                         initial={shouldReduceMotion ? { y: '0%' } : { y: '115%' }}
@@ -74,7 +74,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking, loadingPhase 
                   initial={shouldReduceMotion ? false : { opacity: 0, clipPath: 'inset(0 14% 0 0)' }}
                   animate={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
                   transition={{ duration: 0.9, delay: 0.5, ease: editorialEase }}
-                  className="text-lg sm:text-xl text-zinc-600 max-w-xl font-normal leading-relaxed"
+                  className="text-base sm:text-xl text-zinc-600 max-w-xl font-normal leading-relaxed"
                 >
                   Digivate builds website development, app development, AI workflows, CRM automation, and digital marketing as one system — so businesses in Hyderabad and beyond can get found, convert inquiries, and grow.
                 </motion.p>
@@ -160,7 +160,8 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking, loadingPhase 
               className="w-full sm:w-auto py-4 px-8 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 shadow-xl active:scale-98"
             >
               <MessageSquare className="w-4 h-4" />
-              <span>Chat on WhatsApp ({DISPLAY_PHONE})</span>
+                    <span className="sm:hidden">Chat on WhatsApp</span>
+              <span className="hidden sm:inline">Chat on WhatsApp ({DISPLAY_PHONE})</span>
             </a>
 
             <Link

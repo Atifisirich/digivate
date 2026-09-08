@@ -138,7 +138,7 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="relative w-full sm:w-[420px] h-[580px] max-h-[85vh] bg-white border border-black/[0.12] rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col pointer-events-auto z-10 overflow-hidden"
+            className="relative w-full sm:w-[420px] h-[100dvh] max-h-[100dvh] sm:h-[580px] sm:max-h-[85vh] bg-white border border-black/[0.12] rounded-none sm:rounded-3xl shadow-2xl flex flex-col pointer-events-auto z-10 overflow-hidden"
             id="ask-digivate-chat-panel"
           >
             {/* Header */}
@@ -251,14 +251,14 @@ export const ChatbotModal: React.FC<ChatbotModalProps> = ({
                 e.preventDefault();
                 handleSendMessage();
               }}
-              className="p-3 bg-white border-t border-black/[0.06] flex items-center gap-2"
+              className="p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] bg-white border-t border-black/[0.06] flex items-center gap-2"
             >
               <input
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about websites, marketing, automation, apps..."
-                className="flex-1 px-3.5 py-2 bg-zinc-50 border border-black/[0.08] rounded-xl text-xs sm:text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-blue-500"
+                className="flex-1 min-w-0 px-3.5 py-2.5 bg-zinc-50 border border-black/[0.08] rounded-xl text-base sm:text-sm text-zinc-900 placeholder-zinc-400 focus:outline-none focus:border-blue-500"
               />
               <button
                 type="submit"

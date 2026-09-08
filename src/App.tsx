@@ -61,7 +61,7 @@ export default function App() {
           {/* Sticky Header Navigation */}
           <Navigation onOpenBooking={handleOpenBooking} loadingPhase={loadingPhase} />
           {/* Multi-Page Routes */}
-          <main className="flex-grow relative z-[1]">
+          <main className="flex-grow relative z-[1] pb-20 sm:pb-0">
             <Routes>
               <Route path="/" element={<HomePage onOpenBooking={handleOpenBooking} loadingPhase={loadingPhase} />} />
               <Route path="/services" element={<ServicesPage onOpenBooking={handleOpenBooking} />} />

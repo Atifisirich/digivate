@@ -14,7 +14,7 @@ export const FloatingActionArea: React.FC<FloatingActionAreaProps> = ({
   return (
     <div
       id="floating-actions"
-      className="fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2.5 sm:gap-3 pointer-events-auto"
+      className="fixed bottom-[max(1rem,env(safe-area-inset-bottom))] right-3 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2.5 sm:gap-3 pointer-events-auto"
     >
       {/* Hidden on small screens so it does not cover the hero WhatsApp CTA. */}
       <div className="hidden sm:block">
@@ -27,7 +27,7 @@ export const FloatingActionArea: React.FC<FloatingActionAreaProps> = ({
           type="button"
           onClick={onOpenChat}
           id="floating-ask-digivate-btn"
-          className="group flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#0f131a] text-white hover:bg-blue-600 shadow-xl shadow-black/15 transition-all active:scale-95 cursor-pointer"
+          className="group flex items-center gap-2 min-h-11 px-3.5 sm:px-4 py-2.5 rounded-full bg-[#0f131a] text-white hover:bg-blue-600 shadow-xl shadow-black/15 transition-all active:scale-95 cursor-pointer"
           aria-label="Open Ask Digivate AI Assistant"
         >
           <div className="relative">

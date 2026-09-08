@@ -9,7 +9,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
   return (
-    <footer className="border-t border-black/[0.08] bg-white text-zinc-800 text-xs pt-16 sm:pt-20 pb-12 relative z-50">
+    <footer className="border-t border-black/[0.08] bg-white text-zinc-800 text-xs pt-16 sm:pt-20 pb-[max(5.5rem,calc(3rem+env(safe-area-inset-bottom)))] sm:pb-12 relative z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-12 pb-14 border-b border-black/[0.08]">
           {/* Brand Column */}
@@ -144,7 +144,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenBooking }) => {
           <div className="font-medium">
             © {new Date().getFullYear()} {AGENCY_NAME}. Digital Growth Agency.
           </div>
-          <div className="flex items-center gap-3 font-medium">
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-x-3 gap-y-2 font-medium text-center">
             <Link to="/services/web-development" className="hover:text-blue-600">Web Development</Link>
             <span>·</span>
             <Link to="/services/app-development" className="hover:text-blue-600">App Development</Link>

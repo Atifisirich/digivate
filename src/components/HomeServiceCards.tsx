@@ -11,7 +11,7 @@ import {
 } from 'motion/react';
 import { ArrowRight, Globe, Smartphone, Target, Zap } from 'lucide-react';
 import { SERVICES } from '../config/siteConfig';
-import { SceneControls } from './SceneControls';
+import { SceneControls, scrollSnapToIndex, useHorizontalProgress } from './SceneControls';
 
 const TOTAL = SERVICES.length;
 
@@ -68,6 +68,10 @@ export const HomeServiceCards: React.FC = () => {
   const spread = useMotionValue(280);
   const [active, setActive] = useState(0);
 
+  const [coverflow, setCoverflow] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches,
+  );
+
   useEffect(() => {
     const measure = () => {
       const width = window.innerWidth;
@@ -79,7 +83,15 @@ export const HomeServiceCards: React.FC = () => {
   }, [spread]);
 
   useEffect(() => {
-    if (shouldReduceMotion) return;
+    const media = window.matchMedia('(min-width: 1024px)');
+    const sync = () => setCoverflow(media.matches);
+    sync();
+    media.addEventListener('change', sync);
+    return () => media.removeEventListener('change', sync);
+  }, []);
+
+  useEffect(() => {
+    if (shouldReduceMotion || !coverflow) return;
 
     let frame = 0;
     let last = performance.now();
@@ -97,7 +109,7 @@ export const HomeServiceCards: React.FC = () => {
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [inView, rawProgress, shouldReduceMotion]);
+  }, [inView, rawProgress, shouldReduceMotion, coverflow]);
 
   const jump = (index: number) => {
     const current = rawProgress.get();
@@ -122,33 +134,38 @@ export const HomeServiceCards: React.FC = () => {
   }
 
   return (
-    <section ref={sectionRef} className="relative z-20 py-20 sm:py-28 bg-[#fafaf8]">
+    <section ref={sectionRef} className="relative z-20 py-16 sm:py-28 bg-[#fafaf8] overflow-x-hidden">
       <ServiceHeading />
 
-      <div
-        className="relative mt-8 sm:mt-12 h-[420px] sm:h-[500px] lg:h-[540px]"
-        style={{ perspective: '1100px', perspectiveOrigin: '50% 40%' }}
-      >
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ transformStyle: 'preserve-3d', transform: 'rotateX(14deg)' }}
-        >
-          {SERVICES.map((service, index) => (
-            <CoverflowCard
-              key={service.id}
-              service={service}
-              index={index}
-              progress={progress}
-              spread={spread}
-            />
-          ))}
-        </div>
-      </div>
-
-      <SceneControls
-        onPrev={() => jump((active - 1 + TOTAL) % TOTAL)}
-        onNext={() => jump((active + 1) % TOTAL)}
-      />
+      {coverflow ? (
+        <>
+          <div
+            className="relative mt-8 sm:mt-12 h-[420px] sm:h-[500px] lg:h-[540px]"
+            style={{ perspective: '1100px', perspectiveOrigin: '50% 40%' }}
+          >
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{ transformStyle: 'preserve-3d', transform: 'rotateX(14deg)' }}
+            >
+              {SERVICES.map((service, index) => (
+                <CoverflowCard
+                  key={service.id}
+                  service={service}
+                  index={index}
+                  progress={progress}
+                  spread={spread}
+                />
+              ))}
+            </div>
+          </div>
+          <SceneControls
+            onPrev={() => jump((active - 1 + TOTAL) % TOTAL)}
+            onNext={() => jump((active + 1) % TOTAL)}
+          />
+        </>
+      ) : (
+        <MobileServiceStrip />
+      )}
     </section>
   );
 };
@@ -160,7 +177,7 @@ const ServiceHeading: React.FC = () => (
       What we build
       <span className="w-8 h-px bg-blue-600/70" />
     </span>
-    <h2 className="mt-5 text-4xl sm:text-6xl lg:text-[4.75rem] font-display font-bold tracking-tight text-[#0f131a] leading-[0.94]">
+    <h2 className="mt-5 text-3xl sm:text-6xl lg:text-[4.75rem] font-display font-bold tracking-tight text-[#0f131a] leading-[0.94]">
       Services designed
       <span className="block text-blue-600">to grow a business.</span>
     </h2>
@@ -176,6 +193,35 @@ const ServiceHeading: React.FC = () => (
     </Link>
   </header>
 );
+
+const MobileServiceStrip: React.FC = () => {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const { active } = useHorizontalProgress(scrollerRef, TOTAL);
+
+  return (
+    <>
+      <div
+        ref={scrollerRef}
+        className="scene-h-scroll mt-8 px-[12vw] sm:px-[18vw]"
+      >
+        <div className="flex gap-4 w-max pr-[12vw] sm:pr-[18vw]">
+          {SERVICES.map((service) => (
+            <div
+              key={service.id}
+              className="w-[min(76vw,320px)] h-[340px] shrink-0 snap-center"
+            >
+              <ServiceCardBody service={service} />
+            </div>
+          ))}
+        </div>
+      </div>
+      <SceneControls
+        onPrev={() => scrollSnapToIndex(scrollerRef.current, Math.max(0, active - 1))}
+        onNext={() => scrollSnapToIndex(scrollerRef.current, Math.min(TOTAL - 1, active + 1))}
+      />
+    </>
+  );
+};
 
 const CoverflowCard: React.FC<{
   service: (typeof SERVICES)[number];
@@ -238,7 +284,7 @@ const ServiceCardBody: React.FC<{ service: (typeof SERVICES)[number] }> = ({ ser
 
   return (
     <article
-      className="h-full min-h-[360px] sm:min-h-[400px] rounded-[1.7rem] sm:rounded-[2rem] px-6 py-7 sm:px-8 sm:py-8 flex flex-col shadow-[0_30px_80px_-28px_rgba(15,19,26,0.45)]"
+      className="h-full min-h-[300px] sm:min-h-[400px] rounded-[1.7rem] sm:rounded-[2rem] px-6 py-7 sm:px-8 sm:py-8 flex flex-col shadow-[0_30px_80px_-28px_rgba(15,19,26,0.45)]"
       style={{ backgroundColor: theme.bg, color: theme.ink }}
     >
       <div className="flex items-start justify-end">

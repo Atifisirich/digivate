@@ -32,6 +32,13 @@ export const Navigation: React.FC<NavigationProps> = ({ onOpenBooking, loadingPh
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const handleMouseEnterServices = () => {
     if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
     setServicesDropdownOpen(true);
@@ -74,10 +81,9 @@ export const Navigation: React.FC<NavigationProps> = ({ onOpenBooking, loadingPh
     <header
       id="main-navigation"
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled
+        isScrolled || mobileMenuOpen
           ? 'bg-[#fafaf8]/95 backdrop-blur-xl border-b border-black/[0.07] py-3 shadow-xs'
-          // Untinted at rest: an opaque bar over the hero's blue wash left a visible seam.
-          : 'bg-transparent border-b border-transparent py-4.5'
+          : 'bg-transparent border-b border-transparent py-3 sm:py-4.5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
@@ -346,14 +352,14 @@ export const Navigation: React.FC<NavigationProps> = ({ onOpenBooking, loadingPh
           <button
             type="button"
             onClick={onOpenBooking}
-            className="px-3.5 py-1.5 text-xs font-bold text-white bg-[#0f131a] rounded-full"
+            className="min-h-11 px-4 py-2 text-xs font-bold text-white bg-[#0f131a] rounded-full"
           >
             Book
           </button>
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-zinc-800 hover:text-black"
+            className="p-2.5 min-h-11 min-w-11 text-zinc-800 hover:text-black"
             aria-label="Toggle navigation menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -369,7 +375,7 @@ export const Navigation: React.FC<NavigationProps> = ({ onOpenBooking, loadingPh
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden border-b border-black/[0.08] bg-white px-6 pt-4 pb-8 space-y-5 shadow-xl"
+            className="md:hidden max-h-[min(80vh,calc(100dvh-4.5rem))] overflow-y-auto border-b border-black/[0.08] bg-white px-6 pt-4 pb-[max(2rem,env(safe-area-inset-bottom))] space-y-5 shadow-xl"
           >
             <div className="flex flex-col space-y-3 pt-2">
               <Link

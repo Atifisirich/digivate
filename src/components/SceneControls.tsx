@@ -98,18 +98,18 @@ export const SceneControls: React.FC<SceneControlsProps> = ({ dark = false, onPr
       <button
         type="button"
         onClick={onPrev}
-        className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors ${btn}`}
+        className={`w-12 h-12 sm:w-11 sm:h-11 rounded-full border flex items-center justify-center transition-colors ${btn}`}
         aria-label="Previous"
       >
-        <ChevronLeft className="w-4 h-4" />
+        <ChevronLeft className="w-5 h-5" />
       </button>
       <button
         type="button"
         onClick={onNext}
-        className={`w-10 h-10 rounded-full border flex items-center justify-center transition-colors ${btn}`}
+        className={`w-12 h-12 sm:w-11 sm:h-11 rounded-full border flex items-center justify-center transition-colors ${btn}`}
         aria-label="Next"
       >
-        <ChevronRight className="w-4 h-4" />
+        <ChevronRight className="w-5 h-5" />
       </button>
     </div>
   );

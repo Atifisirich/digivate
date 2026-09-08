@@ -145,7 +145,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking }) => {
 
             {/* Right Area: Send Us a Message Form */}
             <div className="lg:col-span-7">
-              <div className="p-8 sm:p-12 rounded-3xl bg-white border border-black/[0.08] shadow-lg shadow-black/5 space-y-6">
+              <div className="p-5 sm:p-12 rounded-3xl bg-white border border-black/[0.08] shadow-lg shadow-black/5 space-y-6">
                 <div className="space-y-2">
                   <h2 className="text-2xl sm:text-3xl font-bold text-[#0f131a] font-display">
                     Send Us a Message
@@ -211,7 +211,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking }) => {
                           value={formData.fullName}
                           onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                           placeholder="Your Name"
-                          className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                          className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                         />
                       </div>
 
@@ -226,7 +226,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking }) => {
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="your.name@example.com"
-                          className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                          className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                         />
                       </div>
                     </div>
@@ -242,7 +242,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking }) => {
                           value={formData.businessName}
                           onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                           placeholder="Company or Practice Name"
-                          className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                          className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                         />
                       </div>
 
@@ -256,7 +256,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking }) => {
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="+91 98765 43210"
-                          className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                          className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                         />
                       </div>
                     </div>
@@ -269,7 +269,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking }) => {
                       <select
                         value={formData.serviceNeeded}
                         onChange={(e) => setFormData({ ...formData, serviceNeeded: e.target.value })}
-                        className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors cursor-pointer"
+                        className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors cursor-pointer"
                       >
                         <option value="01 — Web Development (High-converting websites)">01 — Web Development (High-converting websites)</option>
                         <option value="02 — App Development (Custom mobile & web apps)">02 — App Development (Custom mobile & web apps)</option>
@@ -290,7 +290,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking }) => {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Tell us about your business goals, current challenges, or project requirements..."
-                        className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors resize-none"
+                        className="w-full px-4 py-3 bg-[#fafaf8] border border-black/[0.08] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors resize-none"
                       />
                     </div>
 

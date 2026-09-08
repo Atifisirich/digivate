@@ -52,7 +52,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
       {isOpen && (
         <motion.div 
           key="appointment-modal-overlay"
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+          className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-6 overflow-y-auto"
         >
           {/* Backdrop */}
           <motion.div
@@ -69,7 +69,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
             transition={{ duration: 0.2 }}
-            className="relative w-full max-w-xl bg-white border border-black/[0.1] rounded-3xl p-6 sm:p-8 shadow-2xl z-10 max-h-[90vh] overflow-y-auto my-auto"
+            className="relative w-full max-w-xl bg-white border border-black/[0.1] rounded-t-3xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl z-10 max-h-[100dvh] sm:max-h-[90vh] overflow-y-auto my-0 sm:my-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]"
             id="appointment-modal"
           >
             <button
@@ -118,7 +118,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="e.g. Rahul Sharma"
-                      className="w-full px-3.5 py-2.5 bg-zinc-50 border border-black/[0.1] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                      className="w-full px-3.5 py-3 bg-zinc-50 border border-black/[0.1] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                     />
                   </div>
 
@@ -129,7 +129,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                       value={formData.businessName}
                       onChange={(e) => setFormData({ ...formData, businessName: e.target.value })}
                       placeholder="e.g. Apex Health"
-                      className="w-full px-3.5 py-2.5 bg-zinc-50 border border-black/[0.1] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                      className="w-full px-3.5 py-3 bg-zinc-50 border border-black/[0.1] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                     />
                   </div>
                 </div>
@@ -143,7 +143,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="name@company.com"
-                      className="w-full px-3.5 py-2.5 bg-zinc-50 border border-black/[0.1] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                      className="w-full px-3.5 py-3 bg-zinc-50 border border-black/[0.1] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                     />
                   </div>
 
@@ -155,7 +155,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="+91 98765 43210"
-                      className="w-full px-3.5 py-2.5 bg-zinc-50 border border-black/[0.1] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                      className="w-full px-3.5 py-3 bg-zinc-50 border border-black/[0.1] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                     />
                   </div>
                 </div>
@@ -165,7 +165,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                   <select
                     value={formData.service}
                     onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-zinc-50 border border-black/[0.1] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                    className="w-full px-3.5 py-3 bg-zinc-50 border border-black/[0.1] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                   >
                     <option value="Web Development">01 — Web Development (High-converting websites)</option>
                     <option value="DIGITAL_MARKETING">02 — Digital Marketing (SEO, Ads, Content)</option>
@@ -182,7 +182,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                       type="date"
                       value={formData.preferredDate}
                       onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-zinc-50 border border-black/[0.1] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                      className="w-full px-3.5 py-3 bg-zinc-50 border border-black/[0.1] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                     />
                   </div>
 
@@ -191,7 +191,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                     <select
                       value={formData.preferredTime}
                       onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                      className="w-full px-3.5 py-2.5 bg-zinc-50 border border-black/[0.1] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
+                      className="w-full px-3.5 py-3 bg-zinc-50 border border-black/[0.1] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors"
                     >
                       <option value="Morning (10:00 AM - 1:00 PM IST)">Morning (10:00 AM - 1:00 PM IST)</option>
                       <option value="Afternoon (2:00 PM - 5:00 PM IST)">Afternoon (2:00 PM - 5:00 PM IST)</option>
@@ -207,7 +207,7 @@ export const AppointmentModal: React.FC<AppointmentModalProps> = ({
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Tell us what you want to achieve or automate for your business..."
-                    className="w-full px-3.5 py-2.5 bg-zinc-50 border border-black/[0.1] rounded-xl text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors resize-none"
+                    className="w-full px-3.5 py-3 bg-zinc-50 border border-black/[0.1] rounded-xl text-base sm:text-sm text-zinc-900 focus:outline-none focus:border-blue-600 transition-colors resize-none"
                   />
                 </div>
 

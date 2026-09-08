@@ -156,7 +156,7 @@ export const IndustriesWeServe: React.FC = () => {
   const current = INDUSTRIES[active];
 
   return (
-    <section ref={sectionRef} className="relative z-20 py-20 sm:py-28 bg-[#0f131a] text-white">
+    <section ref={sectionRef} className="relative z-20 py-16 sm:py-28 bg-[#0f131a] text-white overflow-x-hidden">
       <IndustryHeading />
 
       <div className="relative mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 items-center gap-8 px-4 sm:px-8 lg:px-12">
@@ -169,7 +169,7 @@ export const IndustriesWeServe: React.FC = () => {
                 animate={{ rotateY: 0, x: 0, opacity: 1 }}
                 exit={{ rotateY: -55, x: -80, opacity: 0 }}
                 transition={{ duration: 0.48, ease: editorialEase }}
-                className="text-4xl sm:text-6xl lg:text-7xl font-display font-bold tracking-tight leading-[0.92]"
+                className="text-3xl sm:text-6xl lg:text-7xl font-display font-bold tracking-tight leading-[0.92]"
               >
                 {current.name}
               </motion.h3>
@@ -189,8 +189,10 @@ export const IndustriesWeServe: React.FC = () => {
           </AnimatePresence>
         </div>
 
-        <div className="lg:col-span-7 h-[320px] sm:h-[400px] lg:h-[480px]">
-          <IndustryRing front={front} />
+        <div className="lg:col-span-7 h-[240px] sm:h-[400px] lg:h-[480px] overflow-hidden">
+          <div className="h-full w-full origin-center scale-[0.62] sm:scale-90 lg:scale-100">
+            <IndustryRing front={front} />
+          </div>
         </div>
       </div>
 
@@ -210,7 +212,7 @@ const IndustryHeading: React.FC = () => (
       Who we work with
       <span className="w-8 h-px bg-blue-400/70" />
     </span>
-    <h2 className="mt-3 font-display font-bold tracking-tight text-4xl sm:text-6xl">
+    <h2 className="mt-3 font-display font-bold tracking-tight text-3xl sm:text-6xl">
       Industries we serve.
     </h2>
   </header>

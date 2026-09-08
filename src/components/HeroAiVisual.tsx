@@ -93,7 +93,7 @@ export const HeroAiVisual: React.FC = () => {
   return (
     <div
       id="hero-business-architecture"
-      className="relative w-full max-w-[460px] sm:max-w-[500px] mx-auto lg:ml-auto lg:mr-0"
+      className="relative w-full max-w-[min(100%,340px)] sm:max-w-[500px] mx-auto lg:ml-auto lg:mr-0"
       style={{ perspective: '1200px' }}
       onPointerMove={onMove}
       onPointerLeave={onLeave}
@@ -181,7 +181,7 @@ export const HeroAiVisual: React.FC = () => {
         ))}
 
         <div className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-          <div className="relative flex h-[124px] w-[124px] sm:h-[140px] sm:w-[140px] items-center justify-center">
+          <div className="relative flex h-[96px] w-[96px] sm:h-[140px] sm:w-[140px] items-center justify-center">
             {!shouldReduceMotion && (
               <>
                 <motion.span
@@ -244,7 +244,7 @@ const MapNode: React.FC<{
       <Link
         to={node.path}
         onPointerEnter={onEnter}
-        className="block w-[148px] sm:w-[168px]"
+        className="block w-[118px] sm:w-[168px]"
       >
         <motion.article
           animate={
@@ -260,7 +260,7 @@ const MapNode: React.FC<{
               ? { duration: 0.28, ease: 'easeOut' }
               : { duration: 4.6, repeat: Infinity, ease: 'easeInOut', delay }
           }
-          className="rounded-2xl border bg-white/95 px-3.5 py-3 sm:px-4 sm:py-3.5 backdrop-blur-sm"
+          className="rounded-2xl border bg-white/95 px-2.5 py-2.5 sm:px-4 sm:py-3.5 backdrop-blur-sm"
           style={{
             borderColor: active ? node.color : 'rgba(15,19,26,0.08)',
             boxShadow: active ? `0 16px 36px -20px ${node.color}` : '0 10px 24px -20px rgba(15,19,26,0.28)',

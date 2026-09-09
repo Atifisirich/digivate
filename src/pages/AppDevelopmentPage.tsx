@@ -35,7 +35,7 @@ export const AppDevelopmentPage: React.FC<AppDevelopmentPageProps> = ({ onOpenBo
               App development for mobile and web products that scale.
             </h1>
             <p className="text-lg sm:text-xl text-zinc-600 font-normal leading-relaxed">
-              Digivate is an app development company in Hyderabad. We build mobile and web applications with product strategy, UI/UX, backend APIs, and CRM integrations that can grow with your business.
+              Digivate is an app development company in Hyderabad, working with clients across India. We build mobile and web applications with product strategy, UI/UX, backend APIs, and CRM integrations that can grow with your business.
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-3">
               <button

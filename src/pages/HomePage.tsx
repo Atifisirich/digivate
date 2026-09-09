@@ -76,7 +76,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking, loadingPhase 
                   transition={{ duration: 0.9, delay: 0.5, ease: editorialEase }}
                   className="text-base sm:text-xl text-zinc-600 max-w-xl font-normal leading-relaxed"
                 >
-                  Digivate builds website development, app development, AI workflows, CRM automation, and digital marketing as one system — so businesses in Hyderabad and beyond can get found, convert inquiries, and grow.
+                  Digivate builds website development, app development, AI workflows, CRM automation, and digital marketing as one system — so businesses in Hyderabad and across India can get found, convert inquiries, and grow.
                 </motion.p>
 
                 <motion.div

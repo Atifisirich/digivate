@@ -35,7 +35,7 @@ export const AiAutomationPage: React.FC<AiAutomationPageProps> = ({ onOpenBookin
               AI workflows and CRM automation that capture leads 24/7.
             </h1>
             <p className="text-lg sm:text-xl text-zinc-600 font-normal leading-relaxed">
-              Digivate connects your website, WhatsApp, forms, calendar, and CRM with AI workflows so inquiries are answered, logged, and followed up — without manual copy-paste.
+              Digivate connects your website, WhatsApp, forms, calendar, and CRM with AI workflows so inquiries are answered, logged, and followed up — without manual copy-paste. We work with businesses in Hyderabad and across India.
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-3">
               <button

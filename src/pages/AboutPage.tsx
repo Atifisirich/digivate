@@ -353,7 +353,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onOpenBooking }) => {
             transition={{ duration: 0.7, delay: 1.35, ease: easeOut }}
             className="lg:col-span-4 text-base md:text-lg text-zinc-600 leading-relaxed lg:pb-2"
           >
-            Digivate is a digital growth agency in Hyderabad. We digitize businesses — website development, app development, AI workflows, CRM automation, and digital marketing — so they can be found, trusted, and grown.
+            Digivate is a digital growth agency based in Hyderabad, working with clients across India. We digitize businesses — website development, app development, AI workflows, CRM automation, and digital marketing — so they can be found, trusted, and grown.
           </motion.p>
         </div>
       </section>

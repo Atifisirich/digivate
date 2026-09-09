@@ -35,7 +35,7 @@ export const WebDevelopmentPage: React.FC<WebDevelopmentPageProps> = ({ onOpenBo
               Website development built to convert visitors into clients.
             </h1>
             <p className="text-lg sm:text-xl text-zinc-600 font-normal leading-relaxed">
-              Digivate is a website development company in Hyderabad. We engineer custom, high-speed websites with mobile-first design, technical SEO, and clear conversion paths that turn visitors into inquiries.
+              Digivate is a website development company in Hyderabad, working with clients across India. We engineer custom, high-speed websites with mobile-first design, technical SEO, and clear conversion paths that turn visitors into inquiries.
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-3">
               <button

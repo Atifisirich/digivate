@@ -101,7 +101,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onOpenBooking }) => {
                   <div className="space-y-1">
                     <h3 className="text-xs font-mono text-zinc-400 font-bold uppercase">Agency Location</h3>
                     <p className="text-base font-bold text-[#0f131a]">{AGENCY_LOCATION}</p>
-                    <p className="text-xs text-zinc-500">Serving clients locally in Hyderabad and globally.</p>
+                    <p className="text-xs text-zinc-500">Based in Hyderabad — working with clients across India.</p>
                   </div>
                 </div>
 

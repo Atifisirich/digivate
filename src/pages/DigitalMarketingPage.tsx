@@ -36,7 +36,7 @@ export const DigitalMarketingPage: React.FC<DigitalMarketingPageProps> = ({ onOp
               Digital marketing and SEO campaigns that generate inquiries.
             </h1>
             <p className="text-lg sm:text-xl text-zinc-600 font-normal leading-relaxed">
-              Digivate is a digital marketing agency in Hyderabad. We run SEO, paid search, and conversion campaigns that put your business in front of people ready to inquire — then send them to a site that converts.
+              Digivate is a digital marketing agency in Hyderabad, working with clients across India. We run SEO, paid search, and conversion campaigns that put your business in front of people ready to inquire — then send them to a site that converts.
             </p>
             <div className="flex flex-wrap items-center gap-4 pt-3">
               <button

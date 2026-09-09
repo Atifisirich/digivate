@@ -7,6 +7,11 @@ export const SITE_FAQS: FaqItem[] = [
       'Digivate is a digital growth agency in Hyderabad. We plan and build websites, apps, AI workflows, CRM connections, and digital marketing as one system — not disconnected one-off projects.',
   },
   {
+    question: 'Do you work with clients outside Hyderabad?',
+    answer:
+      'Yes. Digivate is based in Hyderabad and works with businesses across India, including Bangalore, Mumbai, Delhi NCR, Pune, and Chennai. Projects run remotely over calls, WhatsApp, and shared documents, so your location does not change how we work together.',
+  },
+  {
     question: 'Do you offer website development?',
     answer:
       'Yes. We design and develop high-performance websites built to convert visitors into inquiries, with mobile-first layouts, technical SEO foundations, and WhatsApp or booking paths. New sites and rebuilds are both in scope.',

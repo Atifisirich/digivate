@@ -289,6 +289,11 @@ export function buildJsonLd(page: SeoPage) {
         'Digital agency in Hyderabad for website development, app development, AI workflows, CRM automation, and digital marketing.',
       areaServed: [
         { '@type': 'City', name: 'Hyderabad' },
+        { '@type': 'City', name: 'Bangalore' },
+        { '@type': 'City', name: 'Mumbai' },
+        { '@type': 'City', name: 'Delhi' },
+        { '@type': 'City', name: 'Pune' },
+        { '@type': 'City', name: 'Chennai' },
         { '@type': 'Country', name: 'India' },
       ],
       knowsAbout: [

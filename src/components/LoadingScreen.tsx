@@ -13,18 +13,18 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ phase, onPhaseChan
   const [startWipe, setStartWipe] = useState(false);
 
   useEffect(() => {
-    // 0.5s: Start wiping the text in
-    const tWipe = setTimeout(() => setStartWipe(true), 500);
+    // 0.2s: Start wiping the text in
+    const tWipe = setTimeout(() => setStartWipe(true), 200);
 
-    // 4.5s: Switch to transitioning (website hero reveals)
+    // 1.8s: Switch to transitioning (website hero reveals)
     const tTrans = setTimeout(() => {
       onPhaseChange('transitioning');
-    }, 4500);
+    }, 1800);
 
-    // 6.0s: Complete transition
+    // 2.4s: Complete transition
     const tComp = setTimeout(() => {
       onPhaseChange('complete');
-    }, 6000);
+    }, 2400);
 
     return () => { clearTimeout(tWipe); clearTimeout(tTrans); clearTimeout(tComp); };
   }, [onPhaseChange]);
@@ -39,7 +39,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ phase, onPhaseChan
         className="absolute inset-0 bg-[#fafaf8]"
         initial={{ opacity: 1 }}
         animate={{ opacity: phase === 'transitioning' ? 0 : 1 }}
-        transition={{ duration: 1.5, ease: "easeInOut" }}
+        transition={{ duration: 0.7, ease: "easeInOut" }}
       />
 
       {/* 
@@ -55,7 +55,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ phase, onPhaseChan
           }}
           initial={{ width: '0vw', height: '0vw', opacity: 0, filter: 'blur(20px)' }}
           animate={{ width: '40vw', height: '40vw', opacity: 1, filter: 'blur(40px)' }}
-          transition={{ delay: 3.5, duration: 1.0, ease: "easeOut" }}
+          transition={{ delay: 1.4, duration: 0.5, ease: "easeOut" }}
         />
       )}
 
@@ -81,7 +81,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ phase, onPhaseChan
                 className="absolute inset-0 text-[#0f131a]"
                 initial={{ clipPath: 'inset(0 100% 0 0)' }}
                 animate={{ clipPath: startWipe ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)' }}
-                transition={{ duration: 2.0, ease: [0.25, 1, 0.5, 1] }}
+                transition={{ duration: 0.9, ease: [0.25, 1, 0.5, 1] }}
               >
                 {AGENCY_NAME}
               </motion.div>
@@ -95,8 +95,8 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ phase, onPhaseChan
                 initial={{ x: 150, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{
-                  delay: 2.8, 
-                  duration: 0.6,
+                  delay: 1.1, 
+                  duration: 0.35,
                   ease: "easeOut"
                 }}
               >
@@ -108,19 +108,19 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ phase, onPhaseChan
                   initial={{ width: 0, opacity: 0 }}
                   animate={{ width: [0, 60, 0], opacity: [0, 1, 0] }}
                   transition={{
-                    delay: 2.8,
-                    duration: 0.6,
+                    delay: 1.1,
+                    duration: 0.35,
                     ease: "easeOut"
                   }}
                 />
               </motion.div>
 
-              {/* Dot lock-in pulse at 3.4s */}
+              {/* Dot lock-in pulse at 1.35s */}
               <motion.div
                 className="absolute w-12 h-12 sm:w-16 sm:h-16 bg-blue-500 rounded-full blur-xl pointer-events-none"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: [0, 1.5, 1.2], opacity: [0, 0.4, 0] }}
-                transition={{ delay: 3.4, duration: 1.0, ease: "easeOut" }}
+                transition={{ delay: 1.35, duration: 0.5, ease: "easeOut" }}
               />
             </div>
           </motion.div>

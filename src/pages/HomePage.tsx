@@ -50,10 +50,10 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking, loadingPhase 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-center">
               <div className="relative z-20 lg:col-span-6 min-w-0 space-y-6 sm:space-y-8">
-                <p className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.22em] text-blue-600">
-                  Digital agency in Hyderabad
-                </p>
                 <h1 className="font-display font-bold tracking-[-0.06em] leading-[0.92] sm:leading-[0.84] text-[#0f131a]">
+                  <span className="block mb-6 sm:mb-8 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.22em] text-blue-600">
+                    Digital agency in Hyderabad
+                  </span>
                   {HERO_LINES.map((line, i) => (
                     <span key={line.text} className="editorial-word block max-w-full">
                       <motion.span

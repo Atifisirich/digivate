@@ -29,7 +29,7 @@ import { AnimatePresence, LayoutGroup } from 'motion/react';
 
 export type LoadingPhase = 'initial' | 'pulse' | 'transitioning' | 'complete';
 
-export default function App() {
+export function AppShell() {
   const [loadingPhase, setLoadingPhase] = useState<LoadingPhase>(() =>
     isSeoCrawler() ? 'complete' : 'initial',
   );
@@ -45,7 +45,7 @@ export default function App() {
   };
 
   return (
-    <Router>
+    <>
       <LayoutGroup>
         <ScrollToTop />
         <AnimatePresence>
@@ -102,6 +102,18 @@ export default function App() {
           />
         </div>
       </LayoutGroup>
+    </>
+  );
+}
+
+/**
+ * Browser entry. The prerender build renders <AppShell /> inside a StaticRouter
+ * instead, so every route ships real HTML instead of an empty #root.
+ */
+export default function App() {
+  return (
+    <Router>
+      <AppShell />
     </Router>
   );
 }
